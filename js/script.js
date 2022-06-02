@@ -102,3 +102,36 @@ function  setClock(selector, endtime) {
 
 setClock('.timer', deadline);
 
+// MODAL START
+
+const modalShowBtns = document.querySelectorAll('[data-modal]'),
+      modalCloseBtn = document.querySelector('[data-close]'),
+      modalForm = document.querySelector('.modal form'),
+      modal = document.querySelector('.modal');
+console.log(modalForm);
+
+modalShowBtns.forEach(button => { // открытие модального окна
+    button.addEventListener('click', () => {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden'; //блокирует прокрутку страницы при вызове мод окна
+    });
+});
+
+function closeModal() { // закрытие модального окна
+    modal.classList.remove('show');
+    document.body.style.overflow = ''; // возвращает прокрутку страницы
+}
+
+modalCloseBtn.addEventListener('click', closeModal);
+
+modal.addEventListener('click', (e) => { // закрытие модального окна кликнув по пустой обоасти
+    if (e.target === modal) {
+       closeModal();
+    }
+});
+
+document.addEventListener('keydown', (e) => { //закрытие мод окна с помощью Escape
+    if (e.code === 'Escape' && modal.classList.contains('show')) {
+        closeModal();
+    }
+});
