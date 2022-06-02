@@ -110,11 +110,13 @@ const modalShowBtns = document.querySelectorAll('[data-modal]'),
       modal = document.querySelector('.modal');
 console.log(modalForm);
 
+function openModal() {
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden'; //блокирует прокрутку страницы при вызове мод окна
+}
+
 modalShowBtns.forEach(button => { // открытие модального окна
-    button.addEventListener('click', () => {
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden'; //блокирует прокрутку страницы при вызове мод окна
-    });
+    button.addEventListener('click', openModal);
 });
 
 function closeModal() { // закрытие модального окна
@@ -135,3 +137,32 @@ document.addEventListener('keydown', (e) => { //закрытие мод окна
         closeModal();
     }
 });
+
+// const modalTimerId = setTimeout(openModal, 3000);
+
+function showModalByScroll() {
+    if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 1) {
+        openModal();
+        window.removeEventListener('scroll', showModalByScroll); // позволяет показать мод окно только один раз
+    }
+}
+
+window.addEventListener('scroll', showModalByScroll);
+
+// const contactDB = [];
+// modalForm.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//
+//     let newContact = {
+//         name: null,
+//         phone: null,
+//     };
+//
+//     const fields = document.querySelectorAll('.modal input');
+//
+//     newContact.name = fields[0].value;
+//     newContact.phone = fields[1].value;
+//
+//     contactDB.push(newContact);
+//     console.log(contactDB);
+// });
