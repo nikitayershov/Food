@@ -1,7 +1,7 @@
 //TABS START
-const tabs = document.querySelectorAll('.tabheader__item'),
-      tabsContent = document.querySelectorAll('.tabcontent'),
-      tabsParent = document.querySelector('.tabheader__items');
+const tabs = document.querySelectorAll('.tabheader__item'), // пункт меню
+      tabsContent = document.querySelectorAll('.tabcontent'), // дискрай
+      tabsParent = document.querySelector('.tabheader__items'); // блок с пунктами
     
 
 function hideTabContent() {
@@ -39,7 +39,7 @@ tabsParent.addEventListener('click', (event) => {
 
 // TIMER START
 
-const deadline = '2022-05-02';
+const deadline = '2022-07-02';
 
 function getTimeRemaining(endtime) {
     let days, hours, minutes, seconds;
@@ -59,7 +59,7 @@ function getTimeRemaining(endtime) {
     }
 
     return {
-        'total': t, //общее количество оставшихся милисекунд
+        'total': t, //общее количество оставшихся миллисекунд
         'days': days,
         'hours': hours,
         'minutes': minutes,
@@ -126,7 +126,7 @@ function closeModal() { // закрытие модального окна
 
 modalCloseBtn.addEventListener('click', closeModal);
 
-modal.addEventListener('click', (e) => { // закрытие модального окна кликнув по пустой обоасти
+modal.addEventListener('click', (e) => { // закрытие модального окна кликнув по пустой области
     if (e.target === modal) {
        closeModal();
     }
@@ -149,20 +149,80 @@ function showModalByScroll() {
 
 window.addEventListener('scroll', showModalByScroll);
 
-// const contactDB = [];
-// modalForm.addEventListener('submit', (e) => {
-//     e.preventDefault();
-//
-//     let newContact = {
-//         name: null,
-//         phone: null,
-//     };
-//
-//     const fields = document.querySelectorAll('.modal input');
-//
-//     newContact.name = fields[0].value;
-//     newContact.phone = fields[1].value;
-//
-//     contactDB.push(newContact);
-//     console.log(contactDB);
-// });
+// MODAL END
+
+// CARD TEMPLATES. CLASSES START
+class MenuCard {
+    constructor(src, alt, title, descr, price, parentSelector, ...classes) {
+        this.src = src;
+        this.alt = alt;
+        this.title = title;
+        this.descr = descr;
+        this.price = price; // price in USD
+        this.classes = classes;
+        this.parent = document.querySelector(parentSelector);
+        this.exchangeRate = 27;
+        this.changeToUAH();
+    }
+
+    changeToUAH() {
+        this.price = this.price * this.exchangeRate;
+    }
+
+    render() {
+        const element = document.createElement('div');
+
+        if (this.classes.length === 0) {
+            this.classes = "menu__item";
+            element.classList.add(this.classes);
+        } else {
+            this.classes.forEach(className => element.classList.add(className));
+        }
+
+        element.innerHTML = `
+                    <img src=${this.src} alt=${this.alt}>
+                    <h3 class="menu__item-subtitle">${this.title}</h3>
+                    <div class="menu__item-descr">${this.descr}</div>
+                    <div class="menu__item-divider"></div>
+                    <div class="menu__item-price">
+                        <div class="menu__item-cost">Цена:</div>
+                        <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+                    </div>
+            `;
+        this.parent.append(element);
+    }
+}
+
+new MenuCard(
+    "img/tabs/vegy.jpg",
+    "vegy",
+    'Меню "Фитнес"',
+    'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов.' +
+    ' Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+    9,
+    ".menu .container"
+).render();
+
+new MenuCard(
+    "img/tabs/post.jpg",
+    "post",
+    'Меню "Постное"',
+    'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения,' +
+    ' молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и ' +
+    'импортных вегетарианских стейков.',
+    14,
+    ".menu .container"
+).render();
+
+new MenuCard(
+    "img/tabs/elite.jpg",
+    "elite",
+    'Меню “Премиум”',
+    'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд.' +
+    ' Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
+    21,
+    ".menu .container"
+).render();
+
+// CARD TEMPLATES. CLASSES END
+
