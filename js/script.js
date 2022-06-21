@@ -226,3 +226,56 @@ new MenuCard(
 
 // CARD TEMPLATES. CLASSES END
 
+// FORMS
+
+const forms = document.querySelectorAll('form');
+
+const message = {
+    loading: 'Загрузка',
+    success: 'Спасибо! Скоро мы с вами свяжемся',
+    failure: 'Что-то пошло не так...'
+};
+
+forms.forEach(item => {
+    postData(item);
+});
+
+function postData(form) {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const statusMessage = document.createElement('div'); // элемент, который будет отображать статус отправки формы
+        statusMessage.classList.add('status');
+        statusMessage.textContent = message.loading; // при отправке формы отображается загрузка
+        form.append(statusMessage);
+
+        const request = new XMLHttpRequest();
+        request.open('POST', 'server.php');
+
+        request.setRequestHeader('Content-type', 'application/json');
+
+        const formData = new FormData(form); // в формах у input обязательно должен быть атрибут name !!!
+
+        const object = {}; // создаем объект ответа из формы
+        formData.forEach(function (value, key){
+            object[key] = value;
+        });
+
+        const json = JSON.stringify(object); // преобразуем объект в json
+
+        request.send(json); // вместо json можно отправить formData, тогда setRequestHeader нужно закомментировать
+
+        request.addEventListener('load', () => {
+            if (request.status === 200) {
+                console.log(request.response);
+                statusMessage.textContent = message.success;
+                form.reset(); // сбрасывает значения формы
+                setTimeout(() => { // удаляет статус отправки через 3 секунды
+                    statusMessage.remove();
+                }, 2000);
+            } else {
+                statusMessage.textContent = message.failure;
+            }
+        });
+    });
+}
