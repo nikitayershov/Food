@@ -107,7 +107,6 @@ setClock('.timer', deadline);
 const modalShowBtns = document.querySelectorAll('[data-modal]'),
       modalForm = document.querySelector('.modal form'),
       modal = document.querySelector('.modal');
-console.log(modalForm);
 
 function openModal() {
     modal.classList.add('show');
@@ -247,13 +246,10 @@ function postData(form) {
         display: block;
         margin: 0 auto;
         `;
-        statusMessage.textContent = message.loading; // при отправке формы отображается загрузка
         form.insertAdjacentElement('afterend', statusMessage); // позволяет расположить спиннер под формой
 
-        const request = new XMLHttpRequest();
-        request.open('POST', 'server.php');
 
-        request.setRequestHeader('Content-type', 'application/json');
+
 
         const formData = new FormData(form); // в формах у input обязательно должен быть атрибут name !!!
 
@@ -264,17 +260,21 @@ function postData(form) {
 
         const json = JSON.stringify(object); // преобразуем объект в json
 
-        request.send(json); // вместо json можно отправить formData, тогда setRequestHeader нужно закомментировать
-
-        request.addEventListener('load', () => {
-            if (request.status === 200) {
-                console.log(request.response);
-                showThanksModal(message.success);
-                form.reset(); // сбрасывает значения формы
-                statusMessage.remove();
-            } else {
-                showThanksModal(message.failure);
-            }
+        fetch('server.php', {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: json
+        }).then(data => data.text())
+            .then(data => {
+            console.log(data);
+            showThanksModal(message.success);
+            statusMessage.remove();
+        }).catch(() => {
+            showThanksModal(message.failure);
+        }).finally(() => {
+            form.reset(); // сбрасывает значения формы
         });
     });
 }
