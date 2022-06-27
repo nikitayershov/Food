@@ -307,13 +307,9 @@ const slides = document.querySelectorAll('.offer__slide'),
 let slideIndex = 1;
 let offset = 0;
 
-if (slides.length < 10) {
-    total.textContent = `0${slides.length}`;
-    current.textContent = `0${slideIndex}`;
-} else {
-    total.textContent = slides.length;
-    current.textContent = slideIndex;
-}
+total.textContent = getZero(slides.length);
+current.textContent = getZero(slideIndex);
+
 
 slidesField.style.width = 100 * slides.length + '%';
 slidesField.style.display = 'flex'; // выстраивает слайды в строку
@@ -372,11 +368,20 @@ for (let i = 0; i < slides.length; i++) {
     dots.push(dot);
 }
 
+function deleteNotDigits(str) {
+    return +str.replace(/\D/g, '');
+}
+
+function changeDot(i) {
+    dots.forEach(dot => dot.style.opacity = '.5');
+    dots[i].style.opacity = 1;
+}
+
 next.addEventListener('click', () => {
-    if (offset === +width.replace(/\D/g, '') * (slides.length - 1)) {
+    if (offset === deleteNotDigits(width) * (slides.length - 1)) {
         offset = 0;
     } else {
-        offset += +width.replace(/\D/g, '');
+        offset += deleteNotDigits(width);
     }
     slidesField.style.transform = `translateX(-${offset}px)`;
 
@@ -386,21 +391,16 @@ next.addEventListener('click', () => {
         slideIndex++;
     }
 
-    if (slides.length < 10) {
-        current.textContent = `0${slideIndex}`;
-    } else {
-        current.textContent = slideIndex;
-    }
+    current.textContent = getZero(slideIndex);
 
-    dots.forEach(dot => dot.style.opacity = '.5');
-    dots[slideIndex - 1].style.opacity = 1;
+    changeDot(slideIndex - 1);
 });
 
 prev.addEventListener('click', () => {
     if (offset === 0) {
-        offset = +width.replace(/\D/g, '') * (slides.length - 1);
+        offset = deleteNotDigits(width) * (slides.length - 1);
     } else {
-        offset -= +width.replace(/\D/g, '');
+        offset -= deleteNotDigits(width);
     }
 
     slidesField.style.transform = `translateX(-${offset}px)`;
@@ -411,14 +411,9 @@ prev.addEventListener('click', () => {
         slideIndex--;
     }
 
-    if (slides.length < 10) {
-        current.textContent = `0${slideIndex}`;
-    } else {
-        current.textContent = slideIndex;
-    }
+    current.textContent = getZero(slideIndex);
 
-    dots.forEach(dot => dot.style.opacity = '.5');
-    dots[slideIndex - 1].style.opacity = 1;
+    changeDot(slideIndex - 1);
 });
 
 dots.forEach(dot => {
@@ -426,18 +421,13 @@ dots.forEach(dot => {
         const slideTo = e.target.getAttribute('data-slide-to');
 
         slideIndex = slideTo;
-        offset = +width.replace(/\D/g, '') * (slideTo - 1);
+        offset = deleteNotDigits(width) * (slideTo - 1);
 
         slidesField.style.transform = `translateX(-${offset}px)`;
 
-        if (slides.length < 10) {
-            current.textContent = `0${slideIndex}`;
-        } else {
-            current.textContent = slideIndex;
-        }
+        current.textContent = getZero(slideIndex);
 
-        dots.forEach(dot => dot.style.opacity = '.5');
-        dots[slideIndex - 1].style.opacity = 1;
+        changeDot(slideIndex - 1);
     });
 });
 
