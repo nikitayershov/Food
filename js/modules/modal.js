@@ -18,8 +18,6 @@ function openModal(modalSelector, modalTimerId) {
 }
 
 function modal(triggerSelector, modalSelector, modalTimerId) {
-// MODAL START
-
     const modalTrigger = document.querySelectorAll(triggerSelector),
         modal = document.querySelector(modalSelector);
 

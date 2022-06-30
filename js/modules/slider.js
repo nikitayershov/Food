@@ -1,5 +1,4 @@
 function slider({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) {
-    // SLIDER START
 
     const slides = document.querySelectorAll(slide), // '.offer__slide'
         slider = document.querySelector(container), //'.offer__slider'
@@ -145,7 +144,6 @@ function slider({container, slide, nextArrow, prevArrow, totalCounter, currentCo
             return num;
         }
     }
-// SLIDER END
 }
 
 export default slider;

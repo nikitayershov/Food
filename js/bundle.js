@@ -13,7 +13,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 function calc() {
-    // CALCULATOR START
 
     const result = document.querySelector('.calculating__result span');
 
@@ -141,7 +140,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function cards() {
-    // CARD TEMPLATES. CLASSES START
     class MenuCard {
         constructor(img, altimg, title, descr, price, parentSelector, ...classes) {
             this.img = img;
@@ -189,8 +187,6 @@ function cards() {
                 new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
             });
         });
-
-    // CARD TEMPLATES. CLASSES END
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (cards);
@@ -213,8 +209,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function forms(formSelector, modalTimerId) {
-    // FORMS START
-
     const forms = document.querySelectorAll(formSelector);
 
     const message = {
@@ -281,9 +275,6 @@ function forms(formSelector, modalTimerId) {
             (0,_modal__WEBPACK_IMPORTED_MODULE_0__.closeModal)('.modal'); //закрывает модальное окно
         }, 3000);
     }
-
-// MODAL THANKS END
-
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (forms);
@@ -322,8 +313,6 @@ function openModal(modalSelector, modalTimerId) {
 }
 
 function modal(triggerSelector, modalSelector, modalTimerId) {
-// MODAL START
-
     const modalTrigger = document.querySelectorAll(triggerSelector),
         modal = document.querySelector(modalSelector);
 
@@ -369,7 +358,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 function slider({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) {
-    // SLIDER START
 
     const slides = document.querySelectorAll(slide), // '.offer__slide'
         slider = document.querySelector(container), //'.offer__slider'
@@ -515,7 +503,6 @@ function slider({container, slide, nextArrow, prevArrow, totalCounter, currentCo
             return num;
         }
     }
-// SLIDER END
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (slider);
@@ -533,7 +520,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass) {
-    //TABS START
+
     const tabs = document.querySelectorAll(tabsSelector), // пункт меню '.tabheader__item'
         tabsContent = document.querySelectorAll(tabsContentSelector), // дискрай '.tabcontent'
         tabsParent = document.querySelector(tabsParentSelector); // блок с пунктами '.tabheader__items'
@@ -570,7 +557,6 @@ function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass
             });
         }
     });
-// TABS END
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (tabs);
@@ -589,7 +575,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 function timer(id, deadline) {
-    // TIMER START
 
     function getTimeRemaining(endtime) {
         let days, hours, minutes, seconds;
@@ -781,7 +766,7 @@ window.addEventListener('DOMContentLoaded', () => {
     (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])('.tabheader__item', '.tabcontent',
         '.tabheader__items', 'tabheader__item_active');
     (0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('[data-modal]', '.modal', modalTimerId);
-    (0,_modules_timer__WEBPACK_IMPORTED_MODULE_2__["default"])('.timer', '2022-07-02');
+    (0,_modules_timer__WEBPACK_IMPORTED_MODULE_2__["default"])('.timer', '2022-09-10');
     (0,_modules_cards__WEBPACK_IMPORTED_MODULE_3__["default"])();
     (0,_modules_calc__WEBPACK_IMPORTED_MODULE_4__["default"])();
     (0,_modules_forms__WEBPACK_IMPORTED_MODULE_5__["default"])('form', modalTimerId);

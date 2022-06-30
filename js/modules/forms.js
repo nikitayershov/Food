@@ -2,8 +2,6 @@ import {closeModal, openModal} from "./modal";
 import {postData} from "../services/services";
 
 function forms(formSelector, modalTimerId) {
-    // FORMS START
-
     const forms = document.querySelectorAll(formSelector);
 
     const message = {
@@ -70,9 +68,6 @@ function forms(formSelector, modalTimerId) {
             closeModal('.modal'); //закрывает модальное окно
         }, 3000);
     }
-
-// MODAL THANKS END
-
 }
 
 export default forms;

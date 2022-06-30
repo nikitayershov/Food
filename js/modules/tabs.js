@@ -1,5 +1,5 @@
 function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass) {
-    //TABS START
+
     const tabs = document.querySelectorAll(tabsSelector), // пункт меню '.tabheader__item'
         tabsContent = document.querySelectorAll(tabsContentSelector), // дискрай '.tabcontent'
         tabsParent = document.querySelector(tabsParentSelector); // блок с пунктами '.tabheader__items'
@@ -36,7 +36,6 @@ function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass
             });
         }
     });
-// TABS END
 }
 
 export default tabs;

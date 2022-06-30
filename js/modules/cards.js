@@ -1,7 +1,6 @@
 import {getResource} from "../services/services";
 
 function cards() {
-    // CARD TEMPLATES. CLASSES START
     class MenuCard {
         constructor(img, altimg, title, descr, price, parentSelector, ...classes) {
             this.img = img;
@@ -49,8 +48,6 @@ function cards() {
                 new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
             });
         });
-
-    // CARD TEMPLATES. CLASSES END
 }
 
 export default cards;
